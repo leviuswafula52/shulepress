@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shulepress Courses</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="courses-background">
+    <div class="container">
+        <h2>Available Coding Courses</h2>
+        <form id="courseSelectionForm">
+            <div class="form-group">
+                <label for="courses">Select Courses</label>
+                <select id="courses" name="courses" multiple required>
+                    <option value="web-development">Web Development</option>
+                    <option value="android-development">Android Development</option>
+                    <option value="devops">DevOps</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit">Apply</button>
+            </div>
+        </form>
+        <div class="links">
+            <p><a href="index.html">Back to Registration</a></p>
+            <p><a href="login.html">Back to Login</a></p>
+        </div>
+    </div>
+    <footer>
+        <p>Powered by: ShulePress, © 2024</p>
+    </footer>
+    <script>
+        document.getElementById('courseSelectionForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            
+            fetch('apply_courses_backend.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => alert('Courses applied for successfully: ' + data))
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>

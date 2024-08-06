@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shulepress Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="login-background">
+    <div class="container">
+        <h2>Shulepress Login</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Login</button>
+            </div>
+        </form>
+        <div class="links">
+            <p>Don't have an account? <a href="shulepress.html">Register here</a></p>
+            <p><a href="forgot_password.html">Forgot Password?</a></p>
+        </div>
+    </div>
+    <footer>
+        <p>Powered by: ShulePress, © 2024</p>
+    </footer>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            
+            fetch('login_backend.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data === 'success') {
+                    alert('Login successful');
+                    window.location.href = 'dashboard.html'; // Redirect to the dashboard or another page
+                } else {
+                    alert('Login failed: ' + data);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
